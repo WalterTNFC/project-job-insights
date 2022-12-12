@@ -1,23 +1,19 @@
 from functools import lru_cache
 from typing import List, Dict
+import csv
 
 
 @lru_cache
+# Referência: https://docs.python.org/pt-br/3/library/csv.html#module-contents
 def read(path: str) -> List[Dict]:
-    """Reads a file from a given path and returns its contents
+    try:
+        with open(path, encoding="utf-8") as file:
+            jobs = csv.DictReader(file, delimiter=",", quotechar='"')
+            return list(jobs)
+    except OSError:
+        raise FileNotFoundError("File not found")
 
-    Parameters
-    ----------
-    path : str
-        Full path to file
-
-    Returns
-    -------
-    list
-        List of rows as dicts
-    """
-    raise NotImplementedError
-
+print(read("./data/jobs.csv"))
 
 def get_unique_job_types(path: str) -> List[str]:
     """Checks all different job types and returns a list of them
