@@ -13,7 +13,6 @@ def read(path: str) -> List[Dict]:
     except OSError:
         raise FileNotFoundError("File not found")
 
-print(read("./data/jobs.csv"))
 
 def get_unique_job_types(path: str) -> List[str]:
     """Checks all different job types and returns a list of them
@@ -30,7 +29,12 @@ def get_unique_job_types(path: str) -> List[str]:
     list
         List of unique job types
     """
-    raise NotImplementedError
+
+    jobs_read = read(path)
+    unique_jobs = set()
+    for job in jobs_read:
+        unique_jobs.add(job["job_type"])
+    return list(unique_jobs)
 
 
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
