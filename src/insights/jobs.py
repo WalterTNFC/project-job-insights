@@ -31,10 +31,14 @@ def get_unique_job_types(path: str) -> List[str]:
     """
 
     jobs_read = read(path)
-    unique_jobs = set()
-    for job in jobs_read:
-        unique_jobs.add(job["job_type"])
-    return list(unique_jobs)
+    for job_type in jobs_read:
+        types = job_type["job_type"]
+    return types
+
+
+data = './data/jobs.csv'
+teste = get_unique_job_types(data)
+# print(teste)
 
 
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
