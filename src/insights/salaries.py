@@ -1,7 +1,7 @@
 from typing import Union, List, Dict
 
-from src.insights.jobs import read
-
+# from src.insights.jobs import read
+from jobs import read
 
 def get_max_salary(path: str) -> int:
     """Get the maximum salary of all jobs
@@ -24,11 +24,11 @@ def get_max_salary(path: str) -> int:
     list_salaries = []
     for job in read_jobs:
         salary = job["max_salary"]
-        list_salaries.append(salary)
+        if not salary == '' and salary.isnumeric():
+            list_salaries.append(int(salary))
     sort_salaries = sorted(list_salaries)
     max_salary = sort_salaries[len(sort_salaries)-1]
     return(max_salary)
-
 
 data = "./data/jobs.csv"
 teste = get_max_salary(data)
