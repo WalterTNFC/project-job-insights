@@ -1,4 +1,5 @@
 from typing import List, Dict
+from src.insights.jobs import read
 
 
 def get_unique_industries(path: str) -> List[str]:
@@ -16,7 +17,20 @@ def get_unique_industries(path: str) -> List[str]:
     list
         List of unique industries
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    read_jobs = read(path)
+    industries = print(read_jobs)
+    industries = set()
+    for job in read_jobs:
+        get_all_industries = job['industry']
+        industries.add(get_all_industries)
+    return industries
+
+
+data = "./data/jobs.csv"
+teste = get_unique_industries(data)
+print(teste)
 
 
 def filter_by_industry(jobs: List[Dict], industry: str) -> List[Dict]:
