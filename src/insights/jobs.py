@@ -30,15 +30,23 @@ def get_unique_job_types(path: str) -> List[str]:
         List of unique job types
     """
 
+    # Leitura do csv
     jobs_read = read(path)
-    for job_type in jobs_read:
-        types = job_type["job_type"]
-    return types
+
+    # Referencia:
+    # https://algoritmosempython.com.br/cursos/programacao-python/conjuntos/
+    distinct_jobs_types = set()
+    # Lista todos os tipos de trabalho
+    for job in jobs_read:
+        job_type = job["job_type"]
+        distinct_jobs_types.add(job_type)
+        # print(distinct_jobs_types)
+    return distinct_jobs_types
 
 
-data = './data/jobs.csv'
+data = "./data/jobs.csv"
 teste = get_unique_job_types(data)
-# print(teste)
+print(teste)
 
 
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
