@@ -23,8 +23,9 @@ def get_unique_industries(path: str) -> List[str]:
     industries = print(read_jobs)
     industries = set()
     for job in read_jobs:
-        get_all_industries = job['industry']
-        industries.add(get_all_industries)
+        get_industry = job['industry']
+        if not get_industry == '':
+            industries.add(get_industry)
     return industries
 
 
