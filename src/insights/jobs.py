@@ -44,11 +44,6 @@ def get_unique_job_types(path: str) -> List[str]:
     return distinct_jobs_types
 
 
-data = "./data/jobs.csv"
-teste = get_unique_job_types(data)
-print(teste)
-
-
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
     """Filters a list of jobs by job_type
 
@@ -64,4 +59,12 @@ def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
     list
         List of jobs with provided job_type
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    # Referência: https://pt.stackoverflow.com/a/357037
+
+    search_by_received_type = [
+        job for job in jobs if job['job_type'] == job_type
+    ]
+
+    return search_by_received_type
