@@ -29,11 +29,6 @@ def get_unique_industries(path: str) -> List[str]:
     return industries
 
 
-data = "./data/jobs.csv"
-teste = get_unique_industries(data)
-print(teste)
-
-
 def filter_by_industry(jobs: List[Dict], industry: str) -> List[Dict]:
     """Filters a list of jobs by industry
 
@@ -49,4 +44,10 @@ def filter_by_industry(jobs: List[Dict], industry: str) -> List[Dict]:
     list
         List of jobs with provided industry
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    search_by_received_industry = [
+        job for job in jobs if job['industry'] == industry
+    ]
+
+    return search_by_received_industry
