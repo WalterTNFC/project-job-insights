@@ -1,6 +1,7 @@
 from typing import Union, List, Dict
 
 from src.insights.jobs import read
+
 # from jobs import read
 
 
@@ -25,11 +26,11 @@ def get_max_salary(path: str) -> int:
     list_salaries = []
     for job in read_jobs:
         salary = job["max_salary"]
-        if not salary == '' and salary.isnumeric():
+        if not salary == "" and salary.isnumeric():
             list_salaries.append(int(salary))
     sort_salaries = sorted(list_salaries)
-    max_salary = sort_salaries[len(sort_salaries)-1]
-    return(max_salary)
+    max_salary = sort_salaries[len(sort_salaries) - 1]
+    return max_salary
 
 
 def get_min_salary(path: str) -> int:
@@ -52,8 +53,8 @@ def get_min_salary(path: str) -> int:
     read_job = read(path)
     list_salaries = []
     for job in read_job:
-        salary = job['min_salary']
-        if not salary == '' and salary.isnumeric():
+        salary = job["min_salary"]
+        if not salary == "" and salary.isnumeric():
             list_salaries.append(int(salary))
     sort_salaries = sorted(list_salaries)
     min_salary = sort_salaries[0]
@@ -65,35 +66,30 @@ teste = get_min_salary(data)
 print(teste)
 
 
+def validation(job, salary):
+    if "min_salary" not in job or "max_salary" not in job:
+        raise ValueError('Job must have valid min_salary and max_salary')
+    # Referência:
+    # https://www.geeksforgeeks.org/convert-integer-to-string-in-python/
+    verify_min_salary = str(job["min_salary"]).isnumeric()
+    verify_max_salary = str(job["max_salary"]).isnumeric()
+    if verify_min_salary is False or verify_max_salary is False:
+        raise ValueError('Salaries values must be numeric type')
+    if job["min_salary"] > job["max_salary"]:
+        raise ValueError('min value canot be greater than max value')
+    if str(salary).isnumeric() is False:
+        raise ValueError('salary must have only numerics values')
+    return("All validations done!")
+
+
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
-    """Checks if a given salary is in the salary range of a given job
-
-    Parameters
-    ----------
-    job : dict
-        The job with `min_salary` and `max_salary` keys
-    salary : int
-        The salary to check if matches with salary range of the job
-
-    Returns
-    -------
-    bool
-        True if the salary is in the salary range of the job, False otherwise
-
-    Raises
-    ------
-    ValueError
-        If `job["min_salary"]` or `job["max_salary"]` doesn't exists
-        If `job["min_salary"]` or `job["max_salary"]` aren't valid integers
-        If `job["min_salary"]` is greather than `job["max_salary"]`
-        If `salary` isn't a valid integer
-    """
-    raise NotImplementedError
+    validation(job, salary)
+    if salary in range(job["min_salary"], job["max_salary"]):
+        return True
 
 
 def filter_by_salary_range(
-    jobs: List[dict],
-    salary: Union[str, int]
+    jobs: List[dict], salary: Union[str, int]
 ) -> List[Dict]:
     """Filters a list of jobs by salary range
 
