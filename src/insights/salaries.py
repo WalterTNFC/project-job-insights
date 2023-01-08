@@ -77,15 +77,16 @@ def validation(job, salary):
         raise ValueError('Salaries values must be numeric type')
     if job["min_salary"] > job["max_salary"]:
         raise ValueError('min value canot be greater than max value')
-    if str(salary).isnumeric() is False:
+    if str(salary).lstrip('-').isnumeric() is False:
         raise ValueError('salary must have only numerics values')
     return("All validations done!")
 
 
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
     validation(job, salary)
-    if salary in range(job["min_salary"], job["max_salary"]):
-        return True
+    if (int(salary) in range(job["min_salary"], job["max_salary"])) is False:
+        return False
+    return True
 
 
 def filter_by_salary_range(
