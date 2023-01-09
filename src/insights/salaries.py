@@ -88,7 +88,9 @@ def validation(job, salary):
 
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
     validation(job, salary)
-    if (int(job["min_salary"]) <= int(salary) <= int(job["max_salary"])) is False:
+    min_salary = int(job["min_salary"])
+    max_salary = int(job["max_salary"])
+    if (min_salary <= int(salary) <= max_salary) is False:
         return False
     return True
 
